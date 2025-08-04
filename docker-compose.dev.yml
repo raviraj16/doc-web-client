@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  angular-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "4200:4200"
+    volumes:
+      # Mount source code for live reload
+      - .:/app
+      - /app/node_modules  # Prevent overwriting node_modules
+    environment:
+      - NODE_ENV=development
+    stdin_open: true  # Keep container running
+    tty: true        # Enable terminal access
+    command: ng serve --host 0.0.0.0 --port 4200 --poll 2000 --live-reload
+
+  # Optional: Add a service for running tests
+  angular-test:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: ng test --watch=false --browsers=ChromeHeadlessNoSandbox
+    profiles:
+      - testing
