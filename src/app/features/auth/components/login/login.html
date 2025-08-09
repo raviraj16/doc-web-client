@@ -1,1 +1,36 @@
-<p>login works!</p>
+
+<div class="login-container">
+  <div class="login-card">
+    <img 
+        src="/images/logo-light.png" 
+        alt="Smart Document Manager"
+        class="app-logo"
+        aria-label="Logo"
+      >
+    <h2 class="mt-2">Smart Document Manager</h2>
+    <h3>Sign in to your account</h3>
+    <form [formGroup]="loginForm" (ngSubmit)="submit()">
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input id="email" formControlName="email" type="email" placeholder="Email" />
+        <div class="error" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
+          Enter a valid email address.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input id="password" formControlName="password" type="password" placeholder="Password" />
+        <div class="error" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+          Password must be at least 8 characters.
+        </div>
+      </div>
+      <button type="submit" [disabled]="loading || loginForm.invalid">
+        {{ loading ? 'Signing in...' : 'Sign In' }}
+      </button>
+      <div class="error" *ngIf="error">{{ error }}</div>
+    </form>
+    <div class="register-link">
+      Don't have an account? <a routerLink="/auth/sign-up">Register</a>
+    </div>
+  </div>
+</div>

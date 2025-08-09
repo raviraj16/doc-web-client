@@ -1,6 +1,10 @@
 {
   "name": "doc-web-client",
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "description": "Angular-based frontend to handle user interactions with the backend services, document management, ingestion management, and RAG-based Q&A interface",
+  "author": "Ravi Raj",
+  "private": true,
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -19,7 +23,6 @@
       }
     ]
   },
-  "private": true,
   "dependencies": {
     "@angular/common": "^20.1.0",
     "@angular/compiler": "^20.1.0",

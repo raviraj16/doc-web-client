@@ -1,0 +1,114 @@
+.register-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url('/images/auth-bg.png') no-repeat center center;
+    background-size: cover;
+    padding: 1rem 0
+}
+
+.register-card {
+    background: #fff;
+    padding: 2.5rem 2rem;
+    border-radius: 1.25rem;
+    box-shadow: 0 8px 32px rgba(60, 80, 120, 0.12);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+
+.app-logo {
+    height: 80px;
+    width: auto;
+    margin: auto;
+}
+
+
+h2 {
+    color: #2a4d7a;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+h3 {
+    color: #4a6fa5;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.3rem;
+    color: #3a4a5d;
+    font-weight: 500;
+}
+
+input {
+    width: 100%;
+    padding: 0.7rem;
+    border: 1px solid #c3d0e6;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    background: #f7fafd;
+    transition: border-color 0.2s;
+
+    &:focus {
+        border-color: #4a6fa5;
+        outline: none;
+    }
+}
+
+button {
+    width: 100%;
+    padding: 0.8rem;
+    background: linear-gradient(90deg, #4a6fa5 0%, #2a4d7a 100%);
+    color: #fff;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: background 0.2s;
+
+    &:hover:enabled {
+        background: linear-gradient(90deg, #2a4d7a 0%, #4a6fa5 100%);
+    }
+
+    &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+}
+
+.error {
+    color: #e74c3c;
+    font-size: 0.95rem;
+    margin-top: 0.2rem;
+}
+
+.success {
+    color: #27ae60;
+    font-size: 1rem;
+    margin-top: 0.8rem;
+}
+
+.login-link {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    color: #4a6fa5;
+
+    a {
+        color: #2a4d7a;
+        text-decoration: underline;
+        font-weight: 500;
+        cursor: pointer;
+    }
+}
