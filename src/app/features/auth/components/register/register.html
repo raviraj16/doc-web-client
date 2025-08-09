@@ -1,1 +1,49 @@
-<p>register works!</p>
+<div class="register-container">
+    <div class="register-card">
+        <img src="/images/logo-light.png" alt="Smart Document Manager" class="app-logo auth-size"
+            aria-label="Logo">
+        <h2 class="mt-2">Smart Document Manager</h2>
+        <h3>Create your account</h3>
+        <form [formGroup]="registerForm" (ngSubmit)="submit()">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input id="firstName" formControlName="firstName" type="text" placeholder="First Name" />
+                <div class="error"
+                    *ngIf="registerForm.get('firstName')?.touched && registerForm.get('firstName')?.invalid">
+                    First name is required.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input id="lastName" formControlName="lastName" type="text" placeholder="Last Name" />
+                <div class="error"
+                    *ngIf="registerForm.get('lastName')?.touched && registerForm.get('lastName')?.invalid">
+                    Last name is required.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input id="email" formControlName="email" type="email" placeholder="Email" />
+                <div class="error" *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
+                    Enter a valid email address.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input id="password" formControlName="password" type="password" placeholder="Password" />
+                <div class="error"
+                    *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid">
+                    Password must be at least 8 characters.
+                </div>
+            </div>
+            <button type="submit" [disabled]="loading || registerForm.invalid">
+                {{ loading ? 'Registering...' : 'Register' }}
+            </button>
+            <div class="success" *ngIf="success">Registration successful! You can now log in.</div>
+            <div class="error" *ngIf="error">{{ error }}</div>
+        </form>
+        <div class="login-link">
+            Already have an account? <a routerLink="/auth/login">Log in</a>
+        </div>
+    </div>
+</div>
