@@ -1,11 +1,8 @@
 .register-container {
-    min-height: 100vh;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: url('/images/auth-bg.png') no-repeat center center;
-    background-size: cover;
-    padding: 1rem 0
 }
 
 .register-card {
