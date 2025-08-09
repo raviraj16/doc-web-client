@@ -11,11 +11,13 @@ export class UserStore {
 
     constructor(private authApi: AuthApi) { }
 
-    fetchUser(): Observable<User> {
+    fetchUser(): Observable<User | null> {
         return this.authApi.getMe().pipe(
             tap(user => {
                 this.userSubject.next(user);
-                sessionStorage.setItem('user', JSON.stringify(user));
+                if (user) {
+                    sessionStorage.setItem('user', JSON.stringify(user));
+                }
             })
         );
     }

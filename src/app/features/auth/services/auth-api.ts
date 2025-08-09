@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { User } from '../../../core/models/user.model';
 import { Router } from '@angular/router';
 import { UserStore } from '../../../core/services/user-store.service';
@@ -20,7 +20,7 @@ export interface UserLogin {
   providedIn: 'root'
 })
 export class AuthApi {
-  constructor(private http: HttpClient, private router: Router, private userStore: UserStore) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   login(data: UserLogin): Observable<any> {
     return this.http.post(`${environment.baseUrl}/auth/login`, data, { withCredentials: true });
@@ -30,14 +30,16 @@ export class AuthApi {
     return this.http.post(`${environment.baseUrl}/auth/signup`, data);
   }
 
-  getMe(): Observable<User> {
-    return this.http.get<User>(`${environment.baseUrl}/auth/me`, { withCredentials: true });
+  getMe(): Observable< User | null > {
+    return this.http.get<{ data: User | null }>(`${environment.baseUrl}/auth/me`, { withCredentials: true })
+     .pipe(
+        map(response => {
+          return response.data;
+        })
+      );
   }
-  refreshToken(): Observable<User> {
-    return this.http.get<User>(`${environment.baseUrl}/auth/refresh`, { withCredentials: true });
-  }
-  logout() {
-    this.userStore.clearUser();
-    this.router.navigate(['/login']);
+  refreshToken(): Observable<any> {
+    return this.http.get<{ data: User | null }>(`${environment.baseUrl}/auth/refresh`, { withCredentials: true });
+     
   }
 }
