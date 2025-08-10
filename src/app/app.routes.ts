@@ -23,6 +23,12 @@ export const routes: Routes = [
         loadChildren: () => import('./features/user-management/user-management.routes').then(r => r.routes)
     },
     {
+        path: 'users',
+        component: MainLayout,
+        canActivate: [authGuard, adminRoleGuard],
+        loadChildren: () => import('./features/user-management/user-management.routes').then(r => r.routes)
+    },
+    {
         path: 'document',
         component: MainLayout,
         canActivate: [authGuard],

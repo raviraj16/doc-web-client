@@ -16,7 +16,7 @@
         <!-- Nav for desktop -->
         <div class="hidden sm:block">
             <nav class=" main-nav sm:flex gap-8">
-                <a routerLink="/user" routerLinkActive="active"
+                <a *ngIf="isAdmin((user$ | async))" routerLink="/users" routerLinkActive="active"
                     class="transition px-2 py-1 rounded hover:bg-white/20">User Management</a>
                 <a routerLink="/document" routerLinkActive="active"
                     class="transition px-2 py-1 rounded hover:bg-white/20">Documents</a>
@@ -51,7 +51,7 @@
             <span class="font-bold text-lg text-[#2a4d7a]">Smart Document Manager</span>
         </div>
         <nav class="flex flex-col gap-2 mt-4 px-4">
-            <a routerLink="/user" routerLinkActive="active" class="py-2 px-3 rounded hover:bg-[#e3f0ff]"
+            <a *ngIf="isAdmin((user$ | async))" routerLink="/users" routerLinkActive="active" class="py-2 px-3 rounded hover:bg-[#e3f0ff]"
                 (click)="closeDrawer()">User Management</a>
             <a routerLink="/document" routerLinkActive="active" class="py-2 px-3 rounded hover:bg-[#e3f0ff]"
                 (click)="closeDrawer()">Documents</a>

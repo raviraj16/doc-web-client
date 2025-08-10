@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { RouterOutlet, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { UserStore } from '../../../core/services/user-store.service';
+import { UserRole } from '../../../core/enums/user-role.enum';
+import { User } from '../../../core/models/user.model';
 
 @Component({
   selector: 'app-main-layout',
@@ -15,6 +17,7 @@ export class MainLayout {
   showMenu = false;
   showDrawer = false;
   currentYear = new Date().getFullYear();
+  UserRole = UserRole; // Make enum available in template
 
   constructor(private userStore: UserStore, private router: Router) {
     this.user$ = this.userStore.user$;
@@ -25,6 +28,10 @@ export class MainLayout {
     const first = user.firstName ? user.firstName[0] : '';
     const last = user.lastName ? user.lastName[0] : '';
     return (first + last).toUpperCase();
+  }
+
+  isAdmin(user: User | null): boolean {
+    return user?.role === UserRole.ADMIN;
   }
 
   toggleMenu() {
