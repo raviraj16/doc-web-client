@@ -31,7 +31,14 @@ export class Login {
     this.loading = true;
     this.authApi.login(this.loginForm.getRawValue() as UserLogin)
       .subscribe({
-        next: () => {
+        next: (response) => {
+          // If login returns user data, set it in the store
+          if (response?.data) {
+            this.userStore.setUser(response.data);
+          } else {
+            // Otherwise fetch user data
+            this.userStore.fetchUser().subscribe();
+          }
           this.router.navigate(['/document'])
         },
         error: err => {
