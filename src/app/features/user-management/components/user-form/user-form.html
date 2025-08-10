@@ -1,1 +1,115 @@
-<p>user-form works!</p>
+<div class="user-form-container">
+  <div class="form-header">
+    <h2>{{ isEdit ? 'Edit User' : 'Create New User' }}</h2>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="firstName">First Name *</label>
+        <input 
+          type="text" 
+          id="firstName" 
+          formControlName="firstName"
+          [class.error]="userForm.get('firstName')?.touched && userForm.get('firstName')?.errors"
+          placeholder="Enter first name"
+        >
+        <div *ngIf="getFieldError('firstName')" class="field-error">
+          {{ getFieldError('firstName') }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Last Name *</label>
+        <input 
+          type="text" 
+          id="lastName" 
+          formControlName="lastName"
+          [class.error]="userForm.get('lastName')?.touched && userForm.get('lastName')?.errors"
+          placeholder="Enter last name"
+        >
+        <div *ngIf="getFieldError('lastName')" class="field-error">
+          {{ getFieldError('lastName') }}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email *</label>
+      <input 
+        type="email" 
+        id="email" 
+        formControlName="email"
+        [class.error]="userForm.get('email')?.touched && userForm.get('email')?.errors"
+        placeholder="Enter email address"
+      >
+      <div *ngIf="getFieldError('email')" class="field-error">
+        {{ getFieldError('email') }}
+      </div>
+    </div>
+
+    <div class="form-group" *ngIf="!isEdit">
+      <label for="password">Password *</label>
+      <input 
+        type="password" 
+        id="password" 
+        formControlName="password"
+        [class.error]="userForm.get('password')?.touched && userForm.get('password')?.errors"
+        placeholder="Enter password (minimum 6 characters)"
+      >
+      <div *ngIf="getFieldError('password')" class="field-error">
+        {{ getFieldError('password') }}
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="role">Role *</label>
+        <select 
+          id="role" 
+          formControlName="role"
+          [class.error]="userForm.get('role')?.touched && userForm.get('role')?.errors"
+        >
+          <option *ngFor="let role of userRoles" [value]="role.value">
+            {{ role.label }}
+          </option>
+        </select>
+        <div *ngIf="getFieldError('role')" class="field-error">
+          {{ getFieldError('role') }}
+        </div>
+      </div>
+
+      <div class="form-group flex items-center mb-[0!important]">
+        <label class="checkbox-label">
+          <input 
+            type="checkbox" 
+            formControlName="isActive"
+          >
+          <span class="checkbox-text">Active User</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button 
+        type="button" 
+        class="btn btn-secondary" 
+        (click)="onCancel()"
+        [disabled]="loading"
+      >
+        Cancel
+      </button>
+      <button 
+        type="submit" 
+        class="btn btn-primary" 
+        [disabled]="loading || userForm.invalid"
+      >
+        {{ loading ? 'Saving...' : (isEdit ? 'Update User' : 'Create User') }}
+      </button>
+    </div>
+  </form>
+</div>
