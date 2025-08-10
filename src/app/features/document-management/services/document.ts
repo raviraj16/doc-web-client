@@ -47,7 +47,7 @@ export class DocumentService {
   }
 
   updateDocument(id: string, formData: FormData): Observable<any> {
-    return this.http.put<any>(`${this.baseUrl}/${id}`, formData);
+    return this.http.patch<any>(`${this.baseUrl}/${id}`, formData);
   }
 
   deleteDocument(id: string): Observable<{ deleted: boolean }> {
