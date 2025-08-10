@@ -1,1 +1,72 @@
-<p>main-layout works!</p>
+<div class="main-layout-wrapper">
+    <header
+        class="main-header flex items-center justify-between px-4 py-0 bg-gradient-to-r from-[#2a4d7a] to-[#4a6fa5] text-white h-16 relative z-10">
+        <div class="logo-container sm:px-2 flex items-center gap-2">
+            <!-- Hamburger for mobile -->
+            <button class="sm:hidden focus:outline-none" (click)="toggleDrawer()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+            <img src="/images/logo-dark.png" alt="Smart Document Manager" class="app-logo w-8 h-8" aria-label="Logo">
+            <div class="logo font-bold text-lg hidden sm:block">Smart Document Manager</div>
+        </div>
+
+        <!-- Nav for desktop -->
+        <div class="hidden sm:block">
+            <nav class=" main-nav sm:flex gap-8">
+                <a routerLink="/user" routerLinkActive="active"
+                    class="transition px-2 py-1 rounded hover:bg-white/20">User Management</a>
+                <a routerLink="/document" routerLinkActive="active"
+                    class="transition px-2 py-1 rounded hover:bg-white/20">Documents</a>
+                <a routerLink="/ingestion" routerLinkActive="active"
+                    class="transition px-2 py-1 rounded hover:bg-white/20">Ingestion</a>
+                <a routerLink="/qna" routerLinkActive="active"
+                    class="transition px-2 py-1 rounded hover:bg-white/20">QnA</a>
+            </nav>
+        </div>
+        <div class="user-circle-wrapper relative cursor-pointer" (click)="toggleMenu()">
+            <ng-container *ngIf="user$ | async as user">
+                <div
+                    class="user-circle w-10 h-10 bg-white text-[#2a4d7a] rounded-full flex items-center justify-center font-bold text-base shadow">
+                    {{ getInitials(user) }}</div>
+                <div class="user-menu absolute right-0 top-12 bg-white text-[#2a4d7a] rounded shadow-lg min-w-[160px] p-4 flex flex-col items-start z-50"
+                    *ngIf="showMenu">
+                    <div class="user-name font-semibold mb-2">{{ user.firstName }} {{ user.lastName }}</div>
+                    <button class="bg-red-500 hover:bg-red-700 text-white rounded px-4 py-2 w-full text-left"
+                        (click)="logout(); $event.stopPropagation()">Logout</button>
+                </div>
+            </ng-container>
+        </div>
+    </header>
+
+    <!-- Drawer for mobile -->
+    <div class="fixed inset-0 bg-black/40 z-40 sm:hidden" *ngIf="showDrawer" (click)="closeDrawer()"></div>
+    <aside
+        class="fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-50 transform transition-transform duration-200 sm:hidden"
+        [class.-translate-x-64]="!showDrawer" [class.translate-x-0]="showDrawer">
+        <div class="flex items-center gap-2 px-4 py-4 border-b">
+            <img src="/images/logo-dark.png" alt="Smart Document Manager" class="w-8 h-8">
+            <span class="font-bold text-lg text-[#2a4d7a]">Smart Document Manager</span>
+        </div>
+        <nav class="flex flex-col gap-2 mt-4 px-4">
+            <a routerLink="/user" routerLinkActive="active" class="py-2 px-3 rounded hover:bg-[#e3f0ff]"
+                (click)="closeDrawer()">User Management</a>
+            <a routerLink="/document" routerLinkActive="active" class="py-2 px-3 rounded hover:bg-[#e3f0ff]"
+                (click)="closeDrawer()">Documents</a>
+            <a routerLink="/ingestion" routerLinkActive="active" class="py-2 px-3 rounded hover:bg-[#e3f0ff]"
+                (click)="closeDrawer()">Ingestion</a>
+            <a routerLink="/qna" routerLinkActive="active" class="py-2 px-3 rounded hover:bg-[#e3f0ff]"
+                (click)="closeDrawer()">QnA</a>
+        </nav>
+    </aside>
+
+    <div class="main-wrapper flex-1 bg-[#f9fbfd]">
+        <router-outlet></router-outlet>
+    </div>
+
+    <footer class="main-footer bg-[#2a4d7a] text-white text-center py-3 text-base tracking-wide">
+        <span>© {{ (user$ | async)?.firstName || 'User' }} - Smart Document Manager {{ currentYear }}</span>
+    </footer>
+</div>

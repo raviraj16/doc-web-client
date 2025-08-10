@@ -1,0 +1,118 @@
+
+.main-layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(90deg, #2a4d7a 0%, #4a6fa5 100%);
+  color: #fff;
+  height: 55px;
+  position: relative;
+  z-index: 10;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #fff;
+}
+.app-logo {
+    height: 35px;
+    width: auto;
+}
+
+.main-nav {
+  display: flex;
+  gap: 2rem;
+}
+
+.main-nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 0.3rem;
+  transition: background 0.2s;
+}
+
+.main-nav a.active, .main-nav a:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+.user-circle-wrapper {
+  position: relative;
+  cursor: pointer;
+}
+
+.user-circle {
+  width: 35px;
+  height: 35px;
+  background: #fff;
+  color: #2a4d7a;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(60, 80, 120, 0.10);
+  transition: box-shadow 0.2s;
+}
+
+.user-menu {
+  position: absolute;
+  right: 0;
+  top: 48px;
+  background: #fff;
+  color: #2a4d7a;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 16px rgba(60, 80, 120, 0.15);
+  min-width: 160px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  z-index: 100;
+}
+
+.user-menu .user-name {
+  font-weight: 600;
+  margin-bottom: 0.7rem;
+}
+
+.user-menu button {
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 0.3rem;
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+.user-menu button:hover {
+  background: #c0392b;
+}
+
+.main-wrapper {
+    height: calc(100vh - 55px - 55px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.main-footer{
+    height: 55px;   
+}

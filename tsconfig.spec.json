@@ -4,13 +4,17 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "module": "commonjs",
+    "target": "ES2022",
     "types": [
       "jest",
       "node"
     ]
   },
   "files": [
-    "setup-jest.ts" // Adjust path if setup-jest.ts is in root
+    "setup-jest.ts"
   ],
   "include": [
     "src/**/*.spec.ts",

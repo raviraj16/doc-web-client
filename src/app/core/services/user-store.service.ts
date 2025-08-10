@@ -15,8 +15,12 @@ export class UserStore {
         return this.authApi.getMe().pipe(
             tap(user => {
                 this.userSubject.next(user);
-                if (user) {
-                    sessionStorage.setItem('user', JSON.stringify(user));
+                try {
+                    if (user && typeof sessionStorage !== 'undefined') {
+                        sessionStorage.setItem('user', JSON.stringify(user));
+                    }
+                } catch (error) {
+                    console.warn('Failed to save user data to session storage:', error);
                 }
             })
         );
@@ -24,16 +28,46 @@ export class UserStore {
 
     getUser(): User | null {
         if (!this.userSubject.value) {
-            const stored = sessionStorage.getItem('user');
-            if (stored) {
-                this.userSubject.next(JSON.parse(stored));
+            try {
+                if (typeof sessionStorage !== 'undefined') {
+                    const stored = sessionStorage.getItem('user');
+                    if (stored) {
+                        const parsedUser = JSON.parse(stored);
+                        this.userSubject.next(parsedUser);
+                    }
+                }
+            } catch (error) {
+                // Handle corrupted session storage data or missing sessionStorage
+                console.warn('Failed to parse user data from session storage:', error);
+                if (typeof sessionStorage !== 'undefined') {
+                    sessionStorage.removeItem('user');
+                }
             }
         }
         return this.userSubject.value;
     }
 
+    setUser(user: User | null): void {
+        this.userSubject.next(user);
+        try {
+            if (user && typeof sessionStorage !== 'undefined') {
+                sessionStorage.setItem('user', JSON.stringify(user));
+            } else if (typeof sessionStorage !== 'undefined') {
+                sessionStorage.removeItem('user');
+            }
+        } catch (error) {
+            console.warn('Failed to save user data to session storage:', error);
+        }
+    }
+
     clearUser() {
         this.userSubject.next(null);
-        sessionStorage.removeItem('user');
+        try {
+            if (typeof sessionStorage !== 'undefined') {
+                sessionStorage.removeItem('user');
+            }
+        } catch (error) {
+            console.warn('Failed to remove user data from session storage:', error);
+        }
     }
 }
